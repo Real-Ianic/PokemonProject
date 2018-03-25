@@ -1,0 +1,215 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package pokemon;
+
+/**
+ *
+ * @author DELL
+ */
+
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class Pokemon {
+
+    /**
+     * @param args the command line arguments
+     */
+    
+    //kelasC.getClass().getSimpleName()
+    
+    
+    
+    public static void main(String[] args) {
+        Scanner strinput = new Scanner(System.in);
+        Scanner intinput = new Scanner(System.in);
+        
+        
+        System.out.println("|==POKEMON==|");
+        System.out.println("1. Start Your Adventure !");
+        System.out.println("2. Exit");
+        System.out.print("Input : ");
+        int inputstart = intinput.nextInt();
+        int gold=1000;
+        if(inputstart==1) // STARTS GAME
+        {
+            ArrayList<String> backpack = new ArrayList<>();
+            Pokey player = new Pokey();
+            System.out.println();
+            boolean breaker=false;
+            do
+            {
+                System.out.println("Choose your Starting Pokemon !");
+                System.out.println("1. Charmander");
+                System.out.println("2. Bulbasaur");
+                System.out.println("3. Squirtle");
+                System.out.print("Input : ");
+                inputstart = intinput.nextInt();
+                if(inputstart==1)
+                {
+                   breaker=true;
+                   player = new charmander();
+                }
+                else if(inputstart==2)
+                {
+                   breaker=true;
+                   player = new bulbasaur();
+                }
+                else if(inputstart==3)
+                {
+                   breaker=true;
+                   player = new squirtle();
+                }
+            }while(breaker==false);
+            breaker=false;
+            while(breaker==false)//Main Menu 
+            {
+                System.out.println("|==|MAIN MENU|==|");
+                System.out.println("1. Explore");
+                System.out.println("2. Friendly Battle");
+                System.out.println("3. Gym");
+                System.out.println("4. PokeCenter");
+                System.out.println("5. PokeShop");
+                System.out.println("6. Check Pokemon");
+                System.out.println("7. Exit");
+                int menuinput = intinput.nextInt();
+                System.out.println();
+                System.out.println();
+                if(menuinput==1)
+                {
+                    // EXPLORE MAP
+                    String[][] map = new String[30][30];
+                    for(int i=0;i<30;i++) // SETS MAP
+                    {
+                        for(int j=0;j<30;j++)
+                        {
+                            if(i==0 || i==29 || j==0 || j==29)map[j][i]="#";
+                            else map[j][i]=" ";
+                        }
+                    }
+                }
+                else if(menuinput==2)
+                {
+                   ArrayList<Pokey> enemy = new ArrayList<Pokey>();
+                   enemy.add(new charmander());
+                   enemy.add(new squirtle());
+                   enemy.add(new bulbasaur());
+                   for(int x=0;x<3;x++)
+                   {
+                        int temprand=(int)(Math.random()*player.lvl+1+2);
+                        for(int i=0;i<temprand;i++)
+                        {
+                            enemy.get(x).lvlup();
+                        }
+                   }
+                   int ctrenemy=0;
+                   boolean friendlybattle=true;
+                   while(friendlybattle==true)
+                   {
+                       System.out.println("====================================");
+                       System.out.println("Player");
+                       System.out.println("Pokemon : \t"+player.nama);
+                       System.out.println("HP : \t"+player.hp);
+                       System.out.println("MP : \t"+player.mp);
+                       System.out.println("====================================");
+                       System.out.println("Enemy");
+                       System.out.println("Pokemon : \t"+enemy.get(ctrenemy).nama);
+                       System.out.println("HP : \t"+enemy.get(ctrenemy).hp);
+                       System.out.println("MP : \t"+enemy.get(ctrenemy).mp);
+                       System.out.println("====================================");
+                       if(player.spd>) //PLAYER GOES FIRST
+                       {
+                           
+                       }
+                       else //ENEMY GOES FIRST
+                       {
+                           
+                       }
+                   }
+                }
+                else if(menuinput==3)
+                {
+                    
+                }
+                else if(menuinput==4)
+                {
+                    player.heal();
+                    System.out.println("Pokemon Healed !");
+                    System.out.println();
+                }
+                else if(menuinput==5)
+                {
+                    while(breaker==false)
+                    {
+                        int shopinput;
+                        System.out.println("|==|WELCOME TO OUR POKESHOP|==|");
+                        System.out.println("1. Potion"); // Heals 100 | 200G
+                        System.out.println("2. Super Potion"); // Heals 300 | 500G
+                        System.out.println("3. Hyper Potion"); // Heals 500 | 1200G
+                        System.out.println("4. PP Potion"); // Returns Mp | 700 G
+                        System.out.println("0. Exit");
+                        System.out.print("Input : ");
+                        shopinput = intinput.nextInt();
+
+                        switch (shopinput) {
+                            case 1:
+                                if(gold-200>=0)
+                                {
+                                    backpack.add("Potion");    
+                                }
+                                else System.out.println("You don't have enough gold !");
+                                break;
+                            case 2:
+                                if(gold-500>=0)
+                                {
+                                    backpack.add("Super Potion");
+                                }
+                                else System.out.println("You don't have enough gold !");
+                                break;
+                            case 3:
+                                if(gold-1200>=0)
+                                {
+                                    backpack.add("Hyper Potion");
+                                }
+                                else System.out.println("You don't have enough gold !");
+                                break;
+                            case 4:
+                                if(gold-700>=0)
+                                {
+                                    backpack.add("PP Potion");
+                                }
+                                else System.out.println("You don't have enough gold !");
+                                break;
+                            case 0:
+                                System.out.println("Come Again !");
+                                System.out.println();
+                                breaker=true;
+                                break;
+                        }
+                    }
+                    breaker=false;
+                }
+                else if(menuinput==6)
+                {
+                    //cek status ///cek nama pokemon, level ,hp ,mp, move
+                    System.out.println("Pokemon: "+player.nama);
+                    System.out.println("Level: "+player.lvl);
+                    System.out.println("HP: "+player.hp);
+//                    System.out.println("Pokemon HP: "+player.hp);
+                    System.out.println("EXP: "+player.xp);
+                    System.out.println("PP: "+player.mp);
+                    
+                }
+                else if(menuinput==7)
+                {
+                    breaker=true;
+                    System.out.println("Thank You For Playing !");
+                }
+            }
+        }
+    }
+    
+}
